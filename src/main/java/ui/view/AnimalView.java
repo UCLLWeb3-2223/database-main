@@ -11,7 +11,7 @@ public class AnimalView {
 
         // constants for your project
         // replace "probeer" by your own database, e.g. '2TX34'
-        String url = "jdbc:postgresql://databanken.ucll.be:62122/probeer";
+        String url = "jdbc:postgresql://databanken.ucll.be:62223/webontwerp";
         // replace 'web3' by your own schema name, e.g. groep102
         String schema = "web3";
 
