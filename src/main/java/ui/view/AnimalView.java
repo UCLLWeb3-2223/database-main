@@ -10,7 +10,7 @@ public class AnimalView {
     public static void main(String[] args) {
 
         // constants for your project
-        // replace "probeer" by your own database, e.g. '2TX34'
+        // replace "webontwerp" by your own database, e.g. '2TX34'
         String url = "jdbc:postgresql://databanken.ucll.be:62223/webontwerp";
         // replace 'web3' by your own schema name, e.g. groep102
         String schema = "web3";
@@ -19,8 +19,9 @@ public class AnimalView {
         // set properties for db connection
         Properties properties = new Properties();
 
+        // set user and password
         try {
-            Class.forName("ui.view.Secret");
+            Class.forName("ui.view.Secret"); // check if Secret does exist
             Secret.setPass(properties);
         } catch (ClassNotFoundException e) {
             System.out.println("Class ui.view.Secret with credentials not found");

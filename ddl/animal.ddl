@@ -25,8 +25,8 @@ CREATE TABLE groep102.animal
 
 GRANT ALL ON TABLE groep102.animal TO local_r012345;
 
-INSERT INTO groep102.animal ("name","type","food") values ('Blub','vis',5);
-INSERT INTO groep102.animal ("name","type","food") values ('Mia','kat',7);
+
+
 
 -- grant aan lectoren
 GRANT ALL ON SCHEMA groep102 TO local_u0015529;
