@@ -5,7 +5,7 @@ import domain.model.Animal;
 import java.sql.*;
 import java.util.Properties;
 
-public class AnimalView {
+public class AnimalViewWithoutPreparedStatement {
 
     public static void main(String[] args) {
 
@@ -34,18 +34,30 @@ public class AnimalView {
         //open the db connection
         try (Connection connection = DriverManager.getConnection(url, properties)) {
 
-            // add an animal
-            String query = String.format("insert into %s.animal (name,type,food) values (?,?,?)", schema);
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, "Maxxx");
-            preparedStatement.setString(2, "Hond");
-            preparedStatement.setInt(3, 3);
-            preparedStatement.execute();
+            // search an animal with name
+            // without prepared statement
+            System.out.println("Without prepared statement");
 
-            //get all animals
-            query = String.format("SELECT * from %s.animal order by name;", schema);
-            PreparedStatement statementInsert = connection.prepareStatement(query);
-            ResultSet resultSet = statementInsert.executeQuery();
+            String searchValue = "'' OR 1=1 OR '1'='1'";
+            //String searchValue = "'Max'";
+            String query = String.format("SELECT * from %s.animal where name = %s;", schema, searchValue);
+            Statement statementInsert = connection.createStatement();
+            ResultSet resultSet = statementInsert.executeQuery(query);
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String type = resultSet.getString("type");
+                int food = resultSet.getInt("food");
+                Animal animal = new Animal(id, name, type, food);
+                System.out.println(animal.toString());
+            }
+
+            System.out.println("With prepared statement");
+            // with prepared statement
+            query = String.format("SELECT * from %s.animal where name = ?;", schema);
+            PreparedStatement preparedStatementInsert = connection.prepareStatement(query);
+            preparedStatementInsert.setString(1, searchValue);
+            resultSet = preparedStatementInsert.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
